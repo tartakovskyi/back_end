@@ -4,6 +4,8 @@ $m_name = "Иванович";
 $l_name = "Пупкин";
 $age = "33";
 $city = "Конотоп";
+
+$lang = ['en' => 'English', 'ru' => 'Русский', 'uk' => 'Українська']
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +61,11 @@ $city = "Конотоп";
 	</style>
 </head>
 <body>
+	<select name="lang">
+		<option value="en" selected><?php echo $lang['en']; ?></option>
+		<option value="ru"><?php echo $lang['ru']; ?></option>
+		<option value="uk"><?php echo $lang['uk']; ?></option>
+	</select>
 	<h1>Анкета</h1>
 	<form action="">
 		<label><span>Имя:</span><input type="text" name="f_name" placeholder="<?php echo $f_name ?>"></label>
