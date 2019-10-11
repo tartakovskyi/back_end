@@ -8,14 +8,22 @@ $passwords = fopen(PATH.'passwords.txt', "r");
 
 $access = false;
 
-var_dump($passString);
-
 while (!feof($passwords)) {
 	$string = fgets($passwords);
 
-	if ($passString === preg_replace('/\n/', '', $string)) {
-		echo "Доступ разрешен";
+	if ($passString === trim($string)) {
 		$access = true;
+		$userFile = fopen(PATH.$_POST['name'].'.txt', "c+");
+		$count = fgets($userFile);
+		if(isset($count)) {
+			$count += 1;
+		} else {
+			$count = 1;
+		}
+		rewind($userFile);
+		fwrite($userFile, $count);
+		fclose($userFile);
+		echo "Доступ разрешен. Количество посещений: ".$count ;
 		break;
 	}
 }
