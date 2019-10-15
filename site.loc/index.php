@@ -48,6 +48,9 @@
 			border: 1px solid #07c;
 			color: #fff;
 		}
+		.rating {
+			display: none;
+		}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -56,6 +59,7 @@
 	<form id=form>
 		<label><span>Пароль:</span><input type="text" name="pass" placeholder="123456"></label>
 		<input type="submit" value="Отправить">
+		<p class="rating"></p>
 	</form>	
 </body>
 
@@ -64,80 +68,30 @@
 	form.addEventListener('submit', function (e) {
 		e.preventDefault()
 
-
 		$.ajax({
-        url:     '/rating.php', //url страницы (action_ajax_form.php)
-        type:     "POST", //метод отправки
-        dataType: "html", //формат данных
-        data: $(this).serialize(),  // Сеарилизуем объект
-        success: function(response) { //Данные отправлены успешно
-        	console.log(response)
-        },
-    	error: function(response) { // Данные не отправлены
-    		console.log('Ошибка. Данные не отправлены.');
-    	}
-    });
-
-
-  /*  var form_data = new FormData(this)
-    var body = form_data.get('pass')
-    console.log(body)
-    fetch('rating.php', {
-    	method: 'POST',
-    	headers: {
-    		'Content-Type': 'text/html;charset=utf-8'
-    	},
-    	body: body
-    })
-    .then(response => response.text())
-    .then(result => console.log)*/
-
-
-		/*var form_data = new FormData(this)
-		var body = form_data.get('pass')
-		console.log(body)
-
-		var request = new XMLHttpRequest();
-		request.open("POST", '/rating.php');
-		request.setRequestHeader('Content-Type', 'text/html; charset=UTF-8');
-		request.onload = function(e) {
-			var resp = request.response;
-			console.log(resp)
-		}
-		request.send(body);*/
+			url:     '/rating.php',
+			type:     "POST",
+			dataType: "html", 
+			data: $(this).serialize(),
+			success: function(response) {
+				var text
+				var color
+				if (Number(response) <= 4) {
+					text = 'слабый'
+					color = 'red'
+				} else if ((Number(response) > 4 && Number(response) < 6)) {
+					text = 'средний'
+					color = 'orange'
+				} else {
+					text = 'надежный'
+					color = 'green'
+				}
+				$('.rating').html('Оценка пароля: '+response+' - '+text).css('color', color).show()
+			},
+			error: function(response) {
+				console.log('Ошибка. Данные не отправлены.');
+			}
+		});
 	})
-
-
-/*
-function requestOptions(select) {
-	const name = select.attr('name')
-	const val = select.val()
-	$nextSelect = select.next().next('select')
-	$nextSelect.find('option').each(function(){
-		if (!$(this).data('skip') === 1) {$(this).remove()}
-	})
-	$nextDropDown = $nextSelect.next('.tzSelect').find('.dropDown')
-	$nextDropDown.html('')
-	$.ajax({
-		url: "engine/ajax/controller.php?mod=request_options",   
-		method: "POST",
-		data: {selType: name, selOpt: val}
-	}).done(function(answer) {
-		const arr = JSON.parse(answer);
-		for(key in arr) {
-			var opt = document.createElement('option');
-			opt.value = arr[key];
-			$nextSelect.append(opt);
-			var newli = document.createElement('li');
-			newSpan = document.createElement('span');
-			newSpan.innerText = arr[key];
-			$nextDropDown.append(newli);
-			$nextDropDown.find('li:last-child').append(newSpan);
-			newli.addEventListener('click', function() {liOnClick(this)})
-		}
-	}).fail(function() {
-		console.log("Помилка AJAX"); 
-	});
-}*/
 </script>
 </html>
