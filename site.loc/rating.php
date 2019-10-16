@@ -33,7 +33,7 @@ function rating($pass) {
 
 	$symbols = ['!','@','#','%','^','?','*','(',')','-','+'];
 	for ($i=0; $i < count($symbols); $i++) { 
-		if (strpos($pass, $symbols[i]) !== false) {
+		if (strpos($pass, $symbols[$i]) !== false) {
 			$rating += 1;
 			break;
 		}
