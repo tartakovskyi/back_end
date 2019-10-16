@@ -5,11 +5,11 @@ $str = "The PHP Manual is available online in a selection of languages. Please p
 
 $pos = 0;
 while ($pos < (strlen($str) - 80)) {
-	$pos +=80;
+	$pos +=83;
 	while ($str[$pos] != ' ') {
 		$pos -= 1;
 	}
-	$str = substr_replace($str, '<br>', $pos, 0);
+	$str = substr_replace($str, '<br>', $pos, 1);
 }
 echo $str;
 
