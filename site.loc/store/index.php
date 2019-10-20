@@ -1,7 +1,6 @@
 <?php 
 require_once ('config.php');
 
-session_start();
 
 $products = json_decode(file_get_contents("products.json"), true);
 ?>
@@ -97,6 +96,7 @@ $products = json_decode(file_get_contents("products.json"), true);
 			</div>
 		<?php endforeach; ?>
 	</div>
+	<a href="cart.php">Кошик</a>
 </body>
 </html>
 
@@ -117,15 +117,14 @@ $products = json_decode(file_get_contents("products.json"), true);
 			},
 			body: JSON.stringify(prodData)
 		})
-		.then(response => console.log(response.json()))
+		/*.then(function(response) {
+			response.json().then(function(data) {  
+				console.log(data);  
+			});  
 
+		})*/
 	}
 
-	/*[].forEach.call(buttons, function(el){
-		el.addEventListener("click", function() {
-			console.log(this)
-		})
-	})*/
 	
 </script>
 
