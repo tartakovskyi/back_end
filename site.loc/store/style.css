@@ -5,6 +5,8 @@
 .container {
 	margin: 0 auto;
 	max-width: 1200px;
+}
+.wrapper {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -92,10 +94,25 @@ button:hover {
 	padding: 0;
 }
 
-
-
 .quantity input {
 	margin: 0 5px;
 	width: 50px;
 	text-align: center;
 }
+
+.cartTable {
+	margin: 0 auto;
+}
+
+.cartTable th,
+.cartTable td {
+	padding: 15px 25px;
+	text-align: center;
+}
+
+.cartTable .cartTable__total {
+	text-align: left;
+	font-weight: bold;
+}
+
+
