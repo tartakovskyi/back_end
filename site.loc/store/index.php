@@ -39,7 +39,7 @@ $products = json_decode(file_get_contents("products.json"), true);
 		<?php endforeach; ?>
 	</div>
 	<a href="cart.php">Кошик</a>
-	<div class="total">Сумма замовлення: <span id="total"><?php echo $_SESSION['total'] ?></span> грн.</div>
+	<?php if(isset($_SESSION['total'])): ?><div class="total">Сумма замовлення: <span id="total"><?php echo $_SESSION['total']; ?></span> грн.</div><?php endif; ?>
 </body>
 </html>
 
