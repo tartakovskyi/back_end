@@ -22,6 +22,7 @@ require_once ('config.php');
 					<th>Ціна, грн.</th>
 					<th>Кільість, кг</th>
 					<th>Сумма, грн.</th>
+					<th>Видалити</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,8 +31,15 @@ require_once ('config.php');
 						<td><?php echo $prod['id'] ?></td>
 						<td><?php echo $prod['name'] ?></td>
 						<td><?php echo $prod['price'] ?></td>
-						<td><?php echo $prod['quantity'] ?></td>
+						<td>
+							<div class="quantity">
+								<button class="minus" onclick="changeQuantity(this, -1)">-</button>
+								<input type="text" name="quantity" value="<?php echo $prod['quantity'] ?>">
+								<button class="plus" onclick="changeQuantity(this, 1)">+</button>					
+							</div>
+						</td>
 						<td><?php echo $prod['price']*$prod['quantity'] ?></td>
+						<td><a href="#" class="del">X</a></td>
 					</tr>
 				<?php endforeach; ?>
 				<tr>
@@ -41,6 +49,23 @@ require_once ('config.php');
 		</table>
 	</div>
 </body>
+
+<script src="main.js"></script>
+<script>
+	const delBtns = document.getElementsByClassName('del')
+	for (var i = 0; i < delBtns.length; i++) {
+		let del = delBtns[i]
+		del.addEventListener('click', function (e) {
+			e.preventDefault()
+			const prod = this.parentNode.parentNode
+			const prodId = prod.querySelector('td').innerText
+			prod.remove()
+
+			console.log(prod)
+
+		})
+	}
+</script>
 </html>
 
 

@@ -102,17 +102,31 @@ button:hover {
 
 .cartTable {
 	margin: 0 auto;
+	border: none;
 }
 
 .cartTable th,
 .cartTable td {
 	padding: 15px 25px;
 	text-align: center;
+	border-spacing: 0;
+}
+
+.cartTable tr:nth-child(odd) {
+	background-color: #f3f3f3;
 }
 
 .cartTable .cartTable__total {
-	text-align: left;
+	text-align: right;
 	font-weight: bold;
 }
 
+.cartTable .quantity {
+	margin: 0;
+}
+
+.del {
+	color: #f03;
+	text-decoration: none;
+}
 
