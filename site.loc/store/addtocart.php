@@ -2,12 +2,6 @@
 require_once ('config.php');
 $ajax = json_decode(file_get_contents('php://input'), true);
 
-
-
-
-
-
-
 switch ($ajax['function']) {
 
 	case 'add':
@@ -20,7 +14,6 @@ switch ($ajax['function']) {
 };
 
 
-
 function add ($prod) {
 	$id = $prod['id'];
 	if (isset($_SESSION['cart'][$id])) {
@@ -29,7 +22,6 @@ function add ($prod) {
 		$_SESSION['cart'][$id] = $prod;
 	}
 }
-
 
 function delete ($prod) {
 	$id = $prod['id'];
