@@ -2,8 +2,10 @@ const changeQuantity = (btn, num, changeTotal) => {
 	let prod = btn.parentNode
 	const quantity =  prod.querySelector('[name="quantity"]')
 	quantity.value = Number(quantity.value) + num
-	if (changeTotal) {
+	if (changeTotal === true) {
 		prod = btn.parentNode.parentNode.parentNode
+		let  prodSum = quantity.value * prod.querySelector('[data-role="price"]').innerText
+		prod.querySelector('[data-role="sum"]').innerText = prodSum.toFixed(2)
 		addToCart(prod, num)
 	}
 }
@@ -15,12 +17,12 @@ const addToCart = (btn, quantity) => {
 		'function' : 'add',
 		'product' :
 		{
-			'id' : prod.id,
+			'id' : prod.querySelector('[data-role="id"]').innerText,
 			'name' : prod.querySelector('[data-role="name"]').innerText,
 			'price' : Number(prod.querySelector('[data-role="price"]').innerText),
 			'quantity' : (quantity) ? quantity : Number(prod.querySelector('[name="quantity"]').value)
 		}
-	} 	
+	} 
 	ajax(prodData)
 }
 
@@ -49,7 +51,7 @@ const ajax = (prodData) => {
 
 const changeTotal = (sum) => {
 	const totalElem = document.getElementById('total')
-	totalElem.innerText = sum
+	totalElem.innerText = sum.toFixed(2)
 }
 
 const addListenerDelProd = () => {

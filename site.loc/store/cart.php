@@ -41,7 +41,7 @@ require_once ('config.php');
 								<button class="plus" onclick="changeQuantity(this, 1, true)">+</button>					
 							</div>
 						</td>
-						<td><?php echo $prod['price']*$prod['quantity'] ?></td>
+						<td data-role="sum"><?php echo $prod['price']*$prod['quantity'] ?></td>
 						<td><a href="#" class="del">X</a></td>
 					</tr>
 				<?php endforeach; ?>
