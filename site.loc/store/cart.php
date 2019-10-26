@@ -13,7 +13,9 @@ require_once ('config.php');
 </head>
 <body>
 	<div class="container">
+		
 		<h1>Товари у кошику</h1>
+		<?php if (empty($_SESSION['cart'])) {echo "Кошик порожній";} else { ?>
 		<table class="cartTable">
 			<thead>
 				<tr>
@@ -26,16 +28,17 @@ require_once ('config.php');
 				</tr>
 			</thead>
 			<tbody>
+
 				<?php foreach ($_SESSION['cart'] as $prod): ?>
 					<tr>
-						<td><?php echo $prod['id'] ?></td>
-						<td><?php echo $prod['name'] ?></td>
-						<td><?php echo $prod['price'] ?></td>
+						<td data-role="id"><?php echo $prod['id'] ?></td>
+						<td data-role="name"><?php echo $prod['name'] ?></td>
+						<td data-role="price"><?php echo $prod['price'] ?></td>
 						<td>
 							<div class="quantity">
-								<button class="minus" onclick="changeQuantity(this, -1)">-</button>
+								<button class="minus" onclick="changeQuantity(this, -1, true)">-</button>
 								<input type="text" name="quantity" value="<?php echo $prod['quantity'] ?>">
-								<button class="plus" onclick="changeQuantity(this, 1)">+</button>					
+								<button class="plus" onclick="changeQuantity(this, 1, true)">+</button>					
 							</div>
 						</td>
 						<td><?php echo $prod['price']*$prod['quantity'] ?></td>
@@ -43,28 +46,17 @@ require_once ('config.php');
 					</tr>
 				<?php endforeach; ?>
 				<tr>
-					<td colspan="5" class="cartTable__total">Сумма до сплати: <?php  echo $_SESSION['total'] ?> грн.</td>
+					<td colspan="6" class="cartTable__total">Сумма до сплати: <span id="total"><?php  echo $_SESSION['total'] ?></span> грн.</td>
 				</tr>
 			</tbody>
 		</table>
+	<?php } ?>
 	</div>
 </body>
 
 <script src="main.js"></script>
 <script>
-	const delBtns = document.getElementsByClassName('del')
-	for (var i = 0; i < delBtns.length; i++) {
-		let del = delBtns[i]
-		del.addEventListener('click', function (e) {
-			e.preventDefault()
-			const prod = this.parentNode.parentNode
-			const prodId = prod.querySelector('td').innerText
-			prod.remove()
-
-			console.log(prod)
-
-		})
-	}
+	window.onload = addListenerDelProd()
 </script>
 </html>
 

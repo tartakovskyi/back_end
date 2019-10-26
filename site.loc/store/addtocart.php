@@ -1,11 +1,41 @@
 <?php 
 require_once ('config.php');
-$newProd = json_decode(file_get_contents('php://input'), true);
-$id = $newProd['id'];
-if (isset($_SESSION['cart'][$id])) {
-	$_SESSION['cart'][$id]['quantity'] += $newProd['quantity'];
-} else {
-	$_SESSION['cart'][$id] = $newProd;
+$ajax = json_decode(file_get_contents('php://input'), true);
+
+
+
+
+
+
+
+switch ($ajax['function']) {
+
+	case 'add':
+	add($ajax['product']);
+	break;
+	
+	case 'delete':
+	delete($ajax['product']);
+	break;
+};
+
+
+
+function add ($prod) {
+	$id = $prod['id'];
+	if (isset($_SESSION['cart'][$id])) {
+		$_SESSION['cart'][$id]['quantity'] += $prod['quantity'];
+	} else {
+		$_SESSION['cart'][$id] = $prod;
+	}
+}
+
+
+function delete ($prod) {
+	$id = $prod['id'];
+	if (isset($_SESSION['cart'][$id])) {
+		unset($_SESSION['cart'][$id]);
+	}
 }
 
 $total = 0;
@@ -18,5 +48,6 @@ $_SESSION['total'] = $total;
 
 echo json_encode($total);
 
- ?>
+?>
+
 
