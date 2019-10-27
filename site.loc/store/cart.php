@@ -51,12 +51,29 @@ require_once ('config.php');
 			</tbody>
 		</table>
 	<?php } ?>
+
+	<div class="cart-buttons">
+		<a href="index.php" class="btn btn--transp">Продовжити замовляти</a>
+		<button class="btn" id="order">Оформити замовлення</button>
+
+	</div>
+
+	<div class="form-wrapper" id="orderFormWrapper">
+		<h2>Контактні дані замовника</h2>
+		<form id="orderForm">
+			<label><span>ПІБ:</span><input required type="text" name="name" placeholder="Іван Пупкін"></label>
+			<label><span>E-mail:</span><input required type="email" name="email" placeholder="test@test.com"></label>
+			<label><span>Телефон:</span><input required type="tel" pattern ="[0-9]" name="tel" placeholder="0681112233"></label>
+			<label><span>Адреса:</span><textarea required rows="6" name="address" placeholder="Полтавська обл., с.Пилипенки, вул.Петлюри, 20"></textarea></label>
+			<input type="submit" value="Відправити">
+		</form>
+	</div>
 	</div>
 </body>
 
 <script src="main.js"></script>
 <script>
-	window.onload = addListenerDelProd()
+	window.onload = addListenerDelProd(), addListenerOrder()
 </script>
 </html>
 

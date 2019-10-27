@@ -24,6 +24,9 @@ const addToCart = (btn, quantity) => {
 		}
 	} 
 	ajax(prodData)
+	if (!quantity) {
+		prod.querySelector('[name="quantity"]').value = 0
+	}
 }
 
 const delFromCart = (prod) => {
@@ -66,4 +69,12 @@ const addListenerDelProd = () => {
 			prod.remove()
 		})
 	}
+}
+
+const addListenerOrder = () => {
+	const orderBtn = document.getElementById('order')
+	orderBtn.addEventListener('click', function () {
+		const btnBlock =  document.getElementById('orderFormWrapper')
+		btnBlock.style.display = 'block'
+	})
 }

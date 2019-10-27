@@ -11,7 +11,7 @@ mysqli_query($con, "SET NAMES UTF8");
 $query = mysqli_query($con, "SELECT * FROM `products`");
 
 $products = mysqli_fetch_all($query,MYSQLI_ASSOC);
-var_dump($products);
+//var_dump($products);
 
 ?>
 
@@ -40,11 +40,11 @@ var_dump($products);
 						<b>Ціна, грн./кг: </b><span data-role="price"><?php echo $prod['price'] ?></span>
 					</div>
 					<div class="quantity">
-						<button class="minus" onclick="changeQuantity(this, -1)">-</button>
+						<button class="btn minus" onclick="changeQuantity(this, -1)">-</button>
 						<input type="text" name="quantity" value="0">
-						<button class="plus" onclick="changeQuantity(this, 1)">+</button>					
+						<button class="btn plus" onclick="changeQuantity(this, 1)">+</button>					
 					</div>
-					<button class="buy" onclick="addToCart(this)">До кошику</button>
+					<button class="btn buy" onclick="addToCart(this)">До кошику</button>
 				</div>
 			<?php endforeach; ?>
 		</div>

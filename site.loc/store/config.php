@@ -9,7 +9,7 @@ define('IMG_PATH', ROOT_PATH.'/img/');
 
 define('HOST', 'localhost');
 define('DB_NAME', 'store_db');
-define('DB_USER', 'root');
-define('DB_PASS', 'diana111');
+define('DB_USER', 'store');
+define('DB_PASS', 'store');
 
  ?>
