@@ -2,15 +2,15 @@
 
 require_once ('config.php');
 
-//$products = json_decode(file_get_contents("products.json"), true);
 
-$con = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME) 
-or die("Ошибка " . mysqli_error($con));
+$connect = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME) or die("Ошибка " . mysqli_error($con));
 
-mysqli_query($con, "SET NAMES UTF8");
-$query = mysqli_query($con, "SELECT * FROM `products`");
+mysqli_query($connect, "SET NAMES UTF8");
+
+$query = mysqli_query($connect, "SELECT id,title,price,image FROM `products`");
 
 $products = mysqli_fetch_all($query,MYSQLI_ASSOC);
+
 //var_dump($products);
 
 ?>
