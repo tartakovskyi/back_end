@@ -2,17 +2,20 @@
 
 require_once ('config.php');
 
-
+/*
 $connect = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME) or die("Ошибка " . mysqli_error($con));
 
 mysqli_query($connect, "SET NAMES UTF8");
 
 $query = mysqli_query($connect, "SELECT id,title,price,image FROM `products`");
 
-$products = mysqli_fetch_all($query,MYSQLI_ASSOC);
+$products = mysqli_fetch_all($query,MYSQLI_ASSOC);*/
 
-//var_dump($products);
+$stmt = $pdo->query("SELECT id,title,price,image FROM `products`");
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+/*var_dump($products);
+die;*/
 ?>
 
 

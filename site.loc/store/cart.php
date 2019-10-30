@@ -53,7 +53,7 @@ require_once ('config.php');
 	<?php } ?>
 
 	<div class="cart-buttons">
-		<a href="index.php" class="btn btn--transp">Продовжити замовляти</a>
+		<a href="index.php" class="btn btn--transp">Повернутися</a>
 		<button class="btn" id="order">Оформити замовлення</button>
 
 	</div>
