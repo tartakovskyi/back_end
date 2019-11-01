@@ -72,9 +72,44 @@ const addListenerDelProd = () => {
 }
 
 const addListenerOrder = () => {
+	
 	const orderBtn = document.getElementById('order')
 	orderBtn.addEventListener('click', function () {
 		const btnBlock =  document.getElementById('orderFormWrapper')
 		btnBlock.style.display = 'block'
 	})
+
+	const orderForm = document.getElementById('orderForm')
+	orderForm.addEventListener('submit', function(e) {
+		e.preventDefault()
+		let orderArr = {
+			user : {},
+			order : {}
+		}
+		const inputs = this.getElementsByTagName('input')
+		for (let i = 0; i < inputs.length; i++) {
+			orderArr['user'][inputs[i].name] = inputs[i].value
+		}
+		const textarea = this.getElementsByTagName('textarea')
+		for (let i = 0; i < textarea.length; i++) {
+			orderArr['user'][textarea[i].name] = textarea[i].value
+		}
+
+		let response = fetch('orderConfirm.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify(orderArr)
+		})
+		/*.then(function(response) {
+			response.json().then(function(data) {
+				changeTotal(data)
+			})
+		})*/
+		
+
+	})
 }
+
+
