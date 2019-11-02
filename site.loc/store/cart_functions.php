@@ -13,7 +13,7 @@ switch ($ajax['function']) {
 	break;
 
 	case 'confirm':
-	confirm($ajax['user']);
+	confirm($ajax['user'], $dsn, $pdo);
 	break;
 };
 
@@ -49,7 +49,7 @@ function total () {
 	echo json_encode($total);
 }
 
-function confirm($user) {
+function confirm($user, $dsn, $pdo) {
 	$data = [];
 
 	foreach ($user as $key => $val) {
@@ -58,29 +58,19 @@ function confirm($user) {
 				$data['code'] = "error";
 				$data['error'] = [];
 			}
-			array_push($data['error'], $key);
+			$data['error'][] = $key;
 		}
 	}
 
 	if (isset($data['error'])) {
 		$data['code'] = "error";
 	} else {
-
-		global $dsn;
-		global $pdo;
 		
 
-		/*$dsn = "mysql:host=localhost;port=3306;dbname=store_db;charset=utf8";
-		$pdo = new PDO($dsn, 'store', 'store');*/
-		/*$stmt = $pdo->exec("INSERT INTO users (name, email, tel, address) VALUES (".$user['name'].", ".$user['email'].", ".$user['tel'].", ".$user['address'].")");*/
-		$stmt = $pdo->prepare("INSERT INTO users (name, email, tel, address) VALUES (:name, :email, :tel, :address)");
+		$stmt = $pdo->prepare("INSERT INTO users (login, password, name, email, tel, address) VALUES ('".$user['login']."', '".$user['password']."', '".$user['name']."', '".$user['email']."', '".$user['tel']."', '".$user['address']."')");
 
-		$stmt->execute(array(
-			"name" => $user['address'],
-			"email" => $user['email'],
-			"tel" => $user['tel'],
-			"address" => $user['address']
-		));
+
+		$stmt->execute();
 
 		$data['code'] = "success";
 	}

@@ -104,7 +104,15 @@ const addListenerOrder = () => {
 		})
 		.then(function(response) {
 			response.json().then(function(data) {
-				console.log(data)
+				if (data.code == 'error') {
+					const errorBlock = document.getElementById('error')
+					let errorString = "Не заповнені поля: "
+					data.error.forEach(function() {
+						errorString += this + ', '
+					})
+					errorBlock.innerText = errorString
+					errorBlock.style.display = 'block'
+				} 
 			})
 		})
 		

@@ -61,6 +61,9 @@ require_once ('config.php');
 	<div class="form-wrapper" id="orderFormWrapper">
 		<h2>Контактні дані замовника</h2>
 		<form id="orderForm">
+			<p id="error" style="display: none"></p>
+			<label><span>Логін:</span><input required type="text" name="login" placeholder="login"></label>
+			<label><span>Пароль:</span><input required type="text" name="password" placeholder="password"></label>
 			<label><span>ПІБ:</span><input required type="text" name="name" placeholder="Іван Пупкін"></label>
 			<label><span>E-mail:</span><input required type="email" name="email" placeholder="test@test.com"></label>
 			<label><span>Телефон:</span><input required type="tel" name="tel" placeholder="0681112233"></label>
