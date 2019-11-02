@@ -38,7 +38,7 @@ const delFromCart = (prod) => {
 }
 
 const ajax = (prodData) => {
-	let response = fetch('addtocart.php', {
+	let response = fetch('cart_functions.php', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8'
@@ -83,8 +83,8 @@ const addListenerOrder = () => {
 	orderForm.addEventListener('submit', function(e) {
 		e.preventDefault()
 		let orderArr = {
-			user : {},
-			order : {}
+			function : 'confirm',
+			user : {}
 		}
 		const inputs = this.getElementsByTagName('input')
 		for (let i = 0; i < inputs.length; i++) {
@@ -95,18 +95,18 @@ const addListenerOrder = () => {
 			orderArr['user'][textarea[i].name] = textarea[i].value
 		}
 
-		let response = fetch('orderConfirm.php', {
+		let response = fetch('cart_functions.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8'
 			},
 			body: JSON.stringify(orderArr)
 		})
-		/*.then(function(response) {
+		.then(function(response) {
 			response.json().then(function(data) {
-				changeTotal(data)
+				console.log(data)
 			})
-		})*/
+		})
 		
 
 	})

@@ -64,7 +64,7 @@ require_once ('config.php');
 			<label><span>ПІБ:</span><input required type="text" name="name" placeholder="Іван Пупкін"></label>
 			<label><span>E-mail:</span><input required type="email" name="email" placeholder="test@test.com"></label>
 			<label><span>Телефон:</span><input required type="tel" name="tel" placeholder="0681112233"></label>
-			<label><span>Адреса:</span><textarea required rows="6" name="address" placeholder="Полтавська обл., с.Пилипенки, вул.Петлюри, 20"></textarea></label>
+			<label><span>Адреса:</span><textarea rows="6" name="address" placeholder="Полтавська обл., с.Пилипенки, вул.Петлюри, 20"></textarea></label>
 			<!-- <input type="submit" value="Відправити"> -->
 			<button>Відправити</button>
 		</form>
