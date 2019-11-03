@@ -80,9 +80,43 @@ function confirm($user, $dsn, $pdo) {
 		$userId = $stmtUserId->fetch(PDO::FETCH_NUM);
 
 		$stmtOrder = $pdo->exec("INSERT INTO orders (user_id, amount) VALUES ('".$userId[0]."', '".$_SESSION['total']."')");
- 
 
-		//$stmtOrder->execute();
+		/*$stmtOrderProd = $pdo->prepare("INSERT INTO order_products (product_id, product_name, quantity) VALUES (:id, :name, :quantity)");
+
+		foreach ($_SESSION['cart'] as $prod) {
+			$stmtOrderProd->bindValue(':id', (string)$prod['id'], PDO::PARAM_STR);
+			$stmtOrderProd->bindValue(':name',$prod['name'], PDO::PARAM_STR);
+			$stmtOrderProd->bindValue(':quantity', (string)$prod['quantity'], PDO::PARAM_STR);
+			$stmtOrderProd->execute();
+
+			$data['error'][] = $stmtOrderProd;
+		}
+*/
+
+		$stmtOrderId = $pdo->query("SELECT id FROM orders ORDER BY id DESC LIMIT 1");
+
+		$orderId = $stmtOrderId->fetch(PDO::FETCH_NUM);
+
+		foreach ($_SESSION['cart'] as $prod) {
+
+			$stmtOrderProd = $pdo->prepare("INSERT INTO order_products (order_id, product_id, product_name, quantity) VALUES ('".$orderId[0]."', '".$prod['id']."', '".$prod['name']."', '".$prod['quantity']."')");
+
+			//$data['code'][] = $stmtOrderProd;
+
+			$stmtOrderProd->execute();
+
+			$data['code'][] = $stmtOrderProd->errorInfo();
+
+
+
+
+		}
+		echo json_encode($data);
+
+
+		
+
+
 
 	}
 
