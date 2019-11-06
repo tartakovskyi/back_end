@@ -112,7 +112,9 @@ const addListenerOrder = () => {
 					})
 					errorBlock.innerText = errorString
 					errorBlock.style.display = 'block'
-				} 
+				} else if (data.code == 'success') {
+					document.location.href = '/thank.php?id='+data.id
+				}
 			})
 		})
 		
