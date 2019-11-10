@@ -4,16 +4,19 @@ header('Content-Type: text/html; charset=utf-8');
 if(!isset($_SESSION)) {
 	session_start();
 }
-define('ROOT_PATH', 'http://store.loc');
+
+define("DB_USER", "shop");
+define("DB_PASS", "shop");
+define("DB_NAME", "shop_db");
+
+define("ROOT_PATH", dirname(__FILE__));
+define("SITE_URL", "http://shop.loc");
 define('IMG_PATH', '/img/');
 
-/*define('HOST', 'localhost');
-define('DB_NAME', 'store_db');
-define('DB_USER', 'store');
-define('DB_PASS', 'store');*/ 
+require_once(ROOT_PATH."/class/db.php");
+DB::connect(DB_NAME, DB_USER, DB_PASS);
 
-$dsn = "mysql:host=localhost;port=3306;dbname=store_db;charset=utf8";
-$pdo = new PDO($dsn, 'store', 'store');
+//var_dump(ROOT_PATH."/class/db.php");
 
 
 ?>
