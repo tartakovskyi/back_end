@@ -15,7 +15,7 @@ const addToCart = (btn, quantity) => {
 	const prod = btn.parentNode
 	const prodData = {
 		'function' : 'add',
-		'product' :
+		'data' :
 		{
 			'id' : prod.querySelector('[data-role="id"]').innerText,
 			'name' : prod.querySelector('[data-role="name"]').innerText,
@@ -32,13 +32,13 @@ const addToCart = (btn, quantity) => {
 const delFromCart = (prod) => {
 	const prodData = {
 		'function' : 'delete',
-		'product' : {'id' :  prod.querySelector('[data-role="id"]').innerText}
+		'data' : {'id' :  prod.querySelector('[data-role="id"]').innerText}
 	}
 	ajax(prodData)	
 }
 
 const ajax = (prodData) => {
-	let response = fetch('functions.php', {
+	let response = fetch('ajax.php', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8'
@@ -84,18 +84,18 @@ const addListenerOrder = () => {
 		e.preventDefault()
 		let orderArr = {
 			function : 'confirm',
-			user : {}
+			data : {}
 		}
 		const inputs = this.getElementsByTagName('input')
 		for (let i = 0; i < inputs.length; i++) {
-			orderArr['user'][inputs[i].name] = inputs[i].value
+			orderArr['data'][inputs[i].name] = inputs[i].value
 		}
 		const textarea = this.getElementsByTagName('textarea')
 		for (let i = 0; i < textarea.length; i++) {
-			orderArr['user'][textarea[i].name] = textarea[i].value
+			orderArr['data'][textarea[i].name] = textarea[i].value
 		}
 
-		let response = fetch('functions.php', {
+		let response = fetch('ajax.php', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json;charset=utf-8'

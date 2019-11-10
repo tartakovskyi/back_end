@@ -5,6 +5,8 @@ require_once ('config.php');
 $stmt = DB::$conn->query("SELECT id,title,price,image FROM `products`");
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
 ?>
 
 
