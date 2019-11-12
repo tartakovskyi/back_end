@@ -1,14 +1,8 @@
 <?php 
 
 class Cart {
-	// public $function;
-	// public $data;
 	public $response = 'test';
 
-	/*public function _construct ($ajax) {
-		$this->function = $ajax['function'];
-		$this->data = $data;
-	}*/
 
 	public function execute ($func, $data) {
 		$this->$func($data);
@@ -45,7 +39,7 @@ class Cart {
 		$this->response = json_encode($total); 
 	}
 
-	private function confirm($user, $dsn, $pdo) {
+	private function confirm($user) {
 
 		$data = [];
 
@@ -65,23 +59,23 @@ class Cart {
 
 		} else {
 
-			$stmt = $pdo->prepare("INSERT INTO users (login, password, name, email, tel, address) VALUES ('".$user['login']."', '".$user['password']."', '".$user['name']."', '".$user['email']."', '".$user['tel']."', '".$user['address']."')");
+			$stmt = DB::$conn->prepare("INSERT INTO users (login, password, name, email, tel, address) VALUES ('".$user['login']."', '".$user['password']."', '".$user['name']."', '".$user['email']."', '".$user['tel']."', '".$user['address']."')");
 
 			$stmt->execute();
 
-			$stmtUserId = $pdo->query("SELECT id FROM users ORDER BY id DESC LIMIT 1");
+			$stmtUserId = DB::$conn->query("SELECT id FROM users ORDER BY id DESC LIMIT 1");
 
 			$userId = $stmtUserId->fetch(PDO::FETCH_NUM);
 
-			$stmtOrder = $pdo->exec("INSERT INTO orders (user_id, amount) VALUES ('".$userId[0]."', '".$_SESSION['total']."')");
+			$stmtOrder = DB::$conn->exec("INSERT INTO orders (user_id, amount) VALUES ('".$userId[0]."', '".$_SESSION['total']."')");
 
-			$stmtOrderId = $pdo->query("SELECT id FROM orders ORDER BY id DESC LIMIT 1");
+			$stmtOrderId = DB::$conn->query("SELECT id FROM orders ORDER BY id DESC LIMIT 1");
 
 			$orderId = $stmtOrderId->fetch(PDO::FETCH_NUM);
 
 			foreach ($_SESSION['cart'] as $prod) {
 
-				$stmtOrderProd = $pdo->prepare("INSERT INTO order_products (order_id, product_id, product_name, quantity) VALUES ('".$orderId[0]."', '".$prod['id']."', '".$prod['name']."', '".$prod['quantity']."')");
+				$stmtOrderProd = DB::$conn->prepare("INSERT INTO order_products (order_id, product_id, product_name, quantity) VALUES ('".$orderId[0]."', '".$prod['id']."', '".$prod['name']."', '".$prod['quantity']."')");
 
 				$stmtOrderProd->execute();
 
