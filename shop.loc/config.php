@@ -13,10 +13,25 @@ define("ROOT_PATH", dirname(__FILE__));
 define("SITE_URL", "http://shop.loc");
 define('IMG_PATH', '/img/');
 
-require_once(ROOT_PATH."/class/db.php");
-DB::connect(DB_NAME, DB_USER, DB_PASS);
+spl_autoload_register(function ($className) {
 
-//var_dump(ROOT_PATH."/class/db.php");
+	$className = ltrim($className, '\\');
+    $fileName  = '';
+    $namespace = '';
+    if ($lastNsPos = strrpos($className, '\\')) {
+        $namespace = substr($className, 0, $lastNsPos);
+        $className = substr($className, $lastNsPos + 1);
+        $fileName  = "/class/" . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+    }
+    $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+    require(ROOT_PATH . $fileName);
+
+});
+
+
+Shop\DB::connect(DB_NAME, DB_USER, DB_PASS);
+
 
 
 ?>

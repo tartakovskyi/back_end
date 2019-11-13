@@ -1,4 +1,7 @@
 <?php
+
+namespace Shop;
+
 class DB {
     static private $driver = "mysql";
     static private $host = 'localhost';
@@ -16,23 +19,22 @@ class DB {
         self::$password = $password;
 
         $dsn = self::$driver.":host=".self::$host.";port=".self::$port.";dbname=".self::$dbName.";charset=utf8";
-        self::$conn = new PDO($dsn, self::$user, self::$password);
+        self::$conn = new \PDO($dsn, self::$user, self::$password);
     }
 
     public static function setDriver($driver)
     {
-            self::$driver = $driver;
+        self::$driver = $driver;
     }
 
     public static function setHost($host)
     {
-            self::$host = $host;
+        self::$host = $host;
     }
 
     public static function setPort($port)
     {
-            self::$port = $port;
+        self::$port = $port;
     }    
-
-
 }
+
