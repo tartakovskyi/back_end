@@ -30,7 +30,7 @@ spl_autoload_register(function ($className) {
 });
 
 
-Shop\DB::connect(DB_NAME, DB_USER, DB_PASS);
+DB::connect(DB_NAME, DB_USER, DB_PASS);
 
 
 
