@@ -1,0 +1,5 @@
+{
+    "require": {
+        "nekman/luhn-algorithm": "^4.0"
+    }
+}
