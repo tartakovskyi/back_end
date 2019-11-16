@@ -17,7 +17,7 @@ define("ROOT_PATH", dirname(__FILE__));
 define("SITE_URL", "http://shop.loc");
 define('IMG_PATH', '/img/');
 
-spl_autoload_register(function ($className) {
+/*spl_autoload_register(function ($className) {
 	$className = ltrim($className, '\\');
     $fileName  = '';
     $namespace = '';
@@ -29,10 +29,12 @@ spl_autoload_register(function ($className) {
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
     require(ROOT_PATH . $fileName);
-});
+});*/
+
+require_once(ROOT_PATH . "/vendor/autoload.php");
 
 
-$connect = Shop\DB::connect(DB_NAME, DB_USER, DB_PASS);
+$connect = \Shop\DB::connect(DB_NAME, DB_USER, DB_PASS);
 
 
 

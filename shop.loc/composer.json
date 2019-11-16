@@ -1,0 +1,10 @@
+{
+    "require": {
+        "nekman/luhn-algorithm": "^4.0"
+    },
+    "autoload": {
+    	"psr-4" : {
+    		"Shop\\" : "class/Shop/"
+    	}
+    }
+}

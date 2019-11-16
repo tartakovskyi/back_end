@@ -131,7 +131,7 @@
                     <div class="breadcrumb_iner">
                         <div class="breadcrumb_iner_item">
                             <h2><?php echo $pageTitle; ?></h2>
-                            <p>Home <span>-</span> <?php echo $pageTitle; ?></p>
+                            <p><a href="/">Home</a> <span>-</span> <?php echo $pageTitle; ?></p>
                         </div>
                     </div>
                 </div>
