@@ -5,7 +5,7 @@ namespace Shop;
 class Category {
 
 	private $ID;
-
+	private $parents = [];
 
 
 	public function __construct($id) {
@@ -23,7 +23,34 @@ class Category {
 		
 	}
 
-	/*$services = $db->super_query( "SELECT r.*, c.title as category_name, c.img as category_img, s.news_id, s.id as service_id, s.enabled, s.price, p.alt_name as post_alias, p.category as post_category, p.date as post_date, p.id as real_post_id, s.post_id FROM " . PREFIX . "_services as s LEFT JOIN " . PREFIX . "_services_ref as r ON (r.id = s.reference_id) LEFT JOIN " . PREFIX . "_service_categories_ref as c ON (c.id = r.category_ref_id) LEFT JOIN " . PREFIX . "_post as p ON (p.id = s.post_id) WHERE s.enabled=1 AND s.news_id=".(int)$news_id." ORDER BY c.sort, r.category_ref_id, r.title", true );*/
+	public function getParents($id) {
+
+		$stmt = DB::$conn->prepare("SELECT parent FROM categories WHERE categoryID = :id");
+
+		$stmt->execute(['id' => $id]);
+
+		$parentID = $stmt->fetch(\PDO::FETCH_NUM)[0];
+
+		if ($parentID === NULL) {
+
+			return $this->parents;
+
+		} else {
+
+			$this->parents[] = $parentID;
+
+			$this->getParents($parentID);
+
+		}
+	}
+
+
+
+
+	
+
+
+
 
 	
 
@@ -32,4 +59,4 @@ class Category {
 
 }
 
- ?>
+?>
