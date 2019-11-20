@@ -6,7 +6,7 @@ class Category {
 
 	private $ID;
 	private $catInfo = [];
-	private $parents = [];
+	public $parents = [];
 
 
 	public function __construct($id) {
@@ -26,23 +26,26 @@ class Category {
 		
 	}
 
-	public function getParents() {
+	public function getParents($id = null) {
 
-		$parentID = $this->catInfo['parent'];
+		if (is_null($id)) $id = $this->catInfo['parent'];
 
-		while ($parentID !== null) {
-			$stmt = DB::$conn->prepare("SELECT * FROM categories WHERE categoryID = :id");
-			$stmt->execute(['id' => $parentID]);
+		$stmt = DB::$conn->prepare("SELECT * FROM categories WHERE categoryID = :id");
+		$stmt->execute(['id' => $id]);
 
-			$parentInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
+		$parentInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-			$this->parents[] = $parentInfo;
+		$this->parents[] = $parentInfo;
 
-			echo $parentInfo['categoryID'];
 
-			$parentID = $parentInfo['categoryID'];
+
+		if (!is_null($parentInfo['parent'])) {
+			$this->getParents($parentInfo['parent']);
+		} else {
+			var_dump($this->parents);
+			return $this->parents;
 		}
-		return $this->parents;
+
 	}
 
 

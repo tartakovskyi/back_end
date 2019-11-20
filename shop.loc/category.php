@@ -9,9 +9,9 @@ $cat = new Shop\Category($id);
 $info = $cat->getCategoryInfo();
 
 
-//$cat->getParents();
+$parents = $cat->getParents();
 
-var_dump($cat->getParents());
+var_dump($parents);
 
 /*$pageTitle = $info['name'];
 $metaTitle = ($info['title']) ?? $info['name'];
