@@ -5,6 +5,7 @@ namespace Shop;
 class Category {
 
 	private $ID;
+	private $catInfo = [];
 	private $parents = [];
 
 
@@ -18,36 +19,32 @@ class Category {
 
 		$stmt = DB::$conn->prepare("SELECT * FROM categories WHERE categoryID = :id");
 		$stmt->execute(['id' => $this->ID]);
+
+		$this->catInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
 		
-		return $stmt->fetch(\PDO::FETCH_ASSOC);
+		return $this->catInfo;
 		
 	}
 
-	public function getParents($id) {
+	public function getParents() {
 
-		$stmt = DB::$conn->prepare("SELECT parent FROM categories WHERE categoryID = :id");
+		$parentID = $this->catInfo['parent'];
 
-		$stmt->execute(['id' => $id]);
+		while ($parentID !== null) {
+			$stmt = DB::$conn->prepare("SELECT * FROM categories WHERE categoryID = :id");
+			$stmt->execute(['id' => $parentID]);
 
-		$parentID = $stmt->fetch(\PDO::FETCH_NUM)[0];
+			$parentInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-		if ($parentID === NULL) {
+			$this->parents[] = $parentInfo;
 
-			return $this->parents;
+			echo $parentInfo['categoryID'];
 
-		} else {
-
-			$this->parents[] = $parentID;
-
-			$this->getParents($parentID);
-
+			$parentID = $parentInfo['categoryID'];
 		}
+		return $this->parents;
 	}
 
-
-
-
-	
 
 
 
