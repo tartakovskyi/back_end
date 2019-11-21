@@ -6,7 +6,7 @@ class Category {
 
 	private $ID;
 	private $catInfo = [];
-	public $parents = [];
+	private $parents = [];
 
 
 	public function __construct($id) {
@@ -26,24 +26,31 @@ class Category {
 		
 	}
 
-	public function getParents($id = null) {
+	public function getParents() {
+
+		$this->getParentsRecursion();
+
+		return $this->parents;
+		
+	}
+
+
+
+	private function getParentsRecursion($id = null) {
 
 		if (is_null($id)) $id = $this->catInfo['parent'];
 
-		$stmt = DB::$conn->prepare("SELECT * FROM categories WHERE categoryID = :id");
+		$stmt = DB::$conn->prepare("SELECT categoryID,name,parent FROM categories WHERE categoryID = :id");
 		$stmt->execute(['id' => $id]);
 
 		$parentInfo = $stmt->fetch(\PDO::FETCH_ASSOC);
 
 		$this->parents[] = $parentInfo;
 
-
-
 		if (!is_null($parentInfo['parent'])) {
-			$this->getParents($parentInfo['parent']);
+			$this->getParentsRecursion($parentInfo['parent']);
 		} else {
-			var_dump($this->parents);
-			return $this->parents;
+			return;
 		}
 
 	}

@@ -130,8 +130,15 @@
                 <div class="col-lg-8">
                     <div class="breadcrumb_iner">
                         <div class="breadcrumb_iner_item">
-                            <h2><?php echo $pageTitle; ?></h2>
-                            <p><a href="/">Home</a> <span>-</span> <?php echo $pageTitle; ?></p>
+                            <h2><?php echo $pageTitle; ?></h2>  
+                            <p>
+                                <a href="/">Home</a> <span>-</span>
+                                <?php foreach ($parents as $parent) {
+                                    echo '<a href="/category.php?id='.$parent['categoryID'].'">'.$parent['name'].'</a> <span>-</span>';
+                                }
+                                echo $pageTitle;
+                                ?>
+                            </p>
                         </div>
                     </div>
                 </div>
